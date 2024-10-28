@@ -6,11 +6,11 @@
 #    By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 07:02:13 by fkeitel           #+#    #+#              #
-#    Updated: 2024/10/05 06:57:13 by fkeitel          ###   ########.fr        #
+#    Updated: 2024/10/27 10:08:09 by fkeitel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Exception
+NAME = exception
 
 SRC = Bureaucrat.cpp main.cpp
 

@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:59:34 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/05 07:11:42 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/27 10:07:42 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void Bureaucrat::incGrade(int num)
 	{
         if (grade - num < 1)
             throw GradeTooHighException();
-        grade -= num; // Decrease grade because a lower number means higher rank
+        grade -= num;
     } catch (std::exception& e)
 	{
 		//	it would make more sense to implement the error message directly here

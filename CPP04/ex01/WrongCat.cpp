@@ -24,7 +24,7 @@ WrongCat::~WrongCat()
 	std::cout << "WrongCat has been brutally slaughtered!" << std::endl;
 }
 
-WrongCat::WrongCat(const WrongCat &other)  :WrongAnimal(other)
+WrongCat::WrongCat(const WrongCat &other) :WrongAnimal(other)
 {
 	WrongCat::type = other.type;
 }

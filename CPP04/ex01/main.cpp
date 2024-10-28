@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:03:37 by flo               #+#    #+#             */
-/*   Updated: 2024/09/23 08:06:07 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/27 09:35:44 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 int main()
 {
 	{
-		std::cout << "\ntest1:\n" << std::endl;
+		std::cout << "\ntest 1:\n" << std::endl;
 
-		Dog doggy, doggy_copy(doggy);
+		Dog doggy;
+		Dog doggy_copy(doggy);
 
 		for (Dog* d : {&doggy, &doggy_copy})
 			std::cout << d->getBrain() << " "
@@ -31,17 +32,18 @@ int main()
 
 		dog2.getBrain()->setIdeas(0, "food");
 
-		doggy = dog2; //test if the old brain is deleted
+		doggy = dog2;
 
 		for (Dog* d : {&doggy, &doggy_copy})
 			std::cout << d->getBrain() << " "
 				<< d->getBrain()->getIdeas(0) << std::endl;
 
-		Cat* kitty = new Cat(), *kitty_copy = new Cat(*kitty);
+		Cat *kitty = new Cat();
+		Cat *kitty_copy = new Cat(*kitty);
 
 		for (Cat* c : {kitty, kitty_copy})
 			std::cout << c->getBrain() << " "
-			<< c->getBrain()->getIdeas(0) << std::endl;
+				<< c->getBrain()->getIdeas(0) << std::endl;
 
 		kitty->getBrain()->setIdeas(0, "chill");
 
@@ -53,7 +55,7 @@ int main()
 		delete kitty_copy;
 	}
 	{
-		std::cout << "\ntest2:\n" << std::endl;
+		std::cout << "\ntest 2:\n" << std::endl;
 
 		Animal *tab[5] = { new Dog(), new Cat(),
 			new Dog(), new Cat(), new Dog() };
@@ -68,7 +70,7 @@ int main()
 		delete new Cat();
 	}
 	{
-		std::cout << "\ntest3:\n" << std::endl;
+		std::cout << "\ntest 3:\n" << std::endl;
 
 		const Animal* j = new Dog();
 		const Animal* i = new Cat();
