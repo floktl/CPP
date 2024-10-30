@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:56:22 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/28 10:29:47 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/30 12:44:10 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-#define SHRUBBERYCREATIONFORM_HPP
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
 
-#include "AForm.hpp"
-#include <fstream>
+#include <iostream>
+#include <string>
+#include <limits>
+#include <sstream>
+#include <iomanip>
+#include <cmath>
+#include <cctype>
 
-class ShrubberyCreationForm : public AForm
-{
+class ScalarConverter {
 private:
-    std::string target;
+    ScalarConverter() {}
 
 public:
-	// constructors
-    ShrubberyCreationForm(std::string const &target);
-	ShrubberyCreationForm(const ShrubberyCreationForm &other);
-	ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
-    virtual ~ShrubberyCreationForm();
-
-	// getter functions
-	std::string getTarget() const;
-
-	// member functions
-    void beSigned(const Bureaucrat& bureaucrat) override;
-    void action() const override;
+	static void convert(const std::string& literal);
 };
 
+bool tryConvertChar(const std::string& literal);
+bool tryConvertInt(const std::string& literal);
+bool tryConvertFloatAndDouble(const std::string& literal);
+void displayInvalidInput();
 #endif

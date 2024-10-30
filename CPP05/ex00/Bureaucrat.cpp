@@ -6,13 +6,15 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:59:34 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/27 10:07:42 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/28 10:04:46 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-// Constructor implementation
+//------------------------------- Constructors ---------------------------------
+
+// default Constructor
 Bureaucrat::Bureaucrat(std::string const &name, int grade)
     : name(name), grade(grade)
 {
@@ -29,6 +31,60 @@ Bureaucrat::Bureaucrat(std::string const &name, int grade)
         throw;
     }
 }
+
+// Copy constructor
+Bureaucrat::Bureaucrat(const Bureaucrat &other)
+	: name(other.name), grade(other.grade)
+{
+}
+
+//copy assignment constructor
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
+{
+	if (this != &other)
+	{
+		this->grade = other.getGrade();
+	}
+	return (*this);
+}
+
+// Deconstructor
+Bureaucrat::~Bureaucrat()
+{
+	std::cout << "Bureaucrat " << name << " has been destroyed!" << std::endl;
+}
+
+//------------------------------- exceptions ---------------------------------
+
+const char* Bureaucrat::GradeTooHighException::what() const noexcept
+{
+    return "Bureaucrat::GradeTooHighException";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const noexcept
+{
+    return "Bureaucrat::GradeTooLowException";
+}
+
+const char* Bureaucrat::what() const noexcept
+{
+    return "Bureaucrat general exception occurred";
+}
+
+//--------------------------- getter functions -------------------------------
+
+int	Bureaucrat::getGrade() const
+{
+	return (this->grade);
+}
+
+std::string	Bureaucrat::getName() const
+{
+	return (this->name);
+}
+
+
+//---------------------------- member functions -------------------------------
 
 // Increment grade
 void Bureaucrat::incGrade(int num)
@@ -61,39 +117,14 @@ void Bureaucrat::decGrade(int num)
     }
 }
 
-
-// Implementations for the custom exceptions
-const char* Bureaucrat::GradeTooHighException::what() const noexcept
-{
-    return "Bureaucrat::GradeTooHighException";
-}
-
-const char* Bureaucrat::GradeTooLowException::what() const noexcept
-{
-    return "Bureaucrat::GradeTooLowException";
-}
-
-const char* Bureaucrat::what() const noexcept
-{
-    return "Bureaucrat general exception occurred";
-}
-
-int	Bureaucrat::getGrade() const
-{
-	return (this->grade);
-}
-
-std::string	Bureaucrat::getName() const
-{
-	return (this->name);
-}
-
+//	function to print the name and value
 void Bureaucrat::print(std::ostream& os) const
 {
     os << this->getName() << ", bureaucrat grade " << getGrade() << std::endl;
 }
 
-// Non-member function to overload the insertion operator
+//------------------------- Operator Overloading --------------------------------
+
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& Bureaucrat)
 {
     Bureaucrat.print(os);

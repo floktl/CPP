@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:59:34 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/30 08:35:38 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/29 13:01:27 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void Bureaucrat::signForm(AForm& form)
     }
 }
 
-void Bureaucrat::executeForm(const AForm &form)
+void Bureaucrat::executeForm(AForm const & form)
 {
     try
     {

@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:56:22 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/28 09:16:13 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/29 13:09:42 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <exception>
 #include <string>
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat : public std::exception
 {
@@ -53,10 +53,11 @@ public:
     int getGrade() const;
 
 	// member functions
-    void signForm(Form& form);
+    void signForm(AForm& form);
     void incGrade(int num);
     void decGrade(int num);
 	void print(std::ostream& os) const;
+	void executeForm(AForm const & form);
 };
 
 // Non-member function to overload the insertion operator

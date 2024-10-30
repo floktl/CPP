@@ -6,13 +6,14 @@
 #    By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 07:02:13 by fkeitel           #+#    #+#              #
-#    Updated: 2024/10/28 08:17:43 by fkeitel          ###   ########.fr        #
+#    Updated: 2024/10/28 08:20:54 by fkeitel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Form
+NAME = Intern
 
-SRC = Bureaucrat.cpp Form.cpp main.cpp
+SRC = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp \
+	RobotomyRequestForm.cpp PresidentialPardonForm.cpp main.cpp Intern.cpp
 
 CFLAGS = -Wall -Wextra -Werror -std=c++17 -g
 
@@ -35,6 +36,8 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -f *_shrubbery
+	@echo "Deleted all shrubbery files."
 
 re: fclean all
 

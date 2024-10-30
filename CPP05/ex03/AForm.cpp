@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:59:34 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/30 09:07:27 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/30 09:03:28 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,16 @@ void AForm::setSignedStatus(bool status)
 void AForm::beSigned(const Bureaucrat& bureaucrat)
 {
     if (bureaucrat.getGrade() > grade_sign)
-	{
         throw GradeTooLowException();
-	}
     _signed = true;
 }
 
 void AForm::execute(const Bureaucrat& executor) const
 {
-    if (executor.getGrade() > grade_sign)
-    {
-        throw GradeTooLowException();
-	}
-	else if (_signed != true)
+	if (getSignedStatus() != true)
 		throw FormNotSignedException();
+    else if (executor.getGrade() > grade_sign)
+        throw GradeTooLowException();
 	action();
 }
 
@@ -127,6 +123,7 @@ void AForm::print(std::ostream& os) const
 	<< ", grade required to sign: " << getGradeSigned()
 	<< ", grade required to execute: " << getGradeExec() << std::endl;
 }
+
 
 //------------------------- Operator Overloading --------------------------------
 

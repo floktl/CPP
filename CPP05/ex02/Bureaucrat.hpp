@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:56:22 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/05 08:28:59 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/30 08:39:20 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <exception>
 #include <string>
 #include <iostream>
-#include "Form.hpp"
+#include <ctime>
+#include "AForm.hpp"
 
-class Form;  // Forward declaration
+class AForm;
 
 class Bureaucrat : public std::exception
 {
@@ -39,19 +40,25 @@ public:
         public:
             const char* what() const noexcept override;
     };
+    // Overriding the what() function for general exceptions
+    const char* what() const noexcept override;
 
+	// constructors
     Bureaucrat(std::string const &name, int grade);
+	Bureaucrat(const Bureaucrat &other);
+	Bureaucrat &operator=(const Bureaucrat &other);
+    ~Bureaucrat();
+
+	// getters
     std::string getName() const;
     int getGrade() const;
 
-    void signForm(Form& form); // Sign form
+	// member functions
+    void signForm(AForm &form);
     void incGrade(int num);
     void decGrade(int num);
-
 	void print(std::ostream& os) const;
-
-    // Override the what() function for general exceptions
-    const char* what() const noexcept override;
+	void executeForm(const AForm &form);
 };
 
 // Non-member function to overload the insertion operator

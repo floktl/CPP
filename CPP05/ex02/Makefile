@@ -6,34 +6,38 @@
 #    By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 07:02:13 by fkeitel           #+#    #+#              #
-#    Updated: 2024/10/05 08:50:58 by fkeitel          ###   ########.fr        #
+#    Updated: 2024/10/28 08:20:45 by fkeitel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Sub_Form
 
-SRC = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp main.cpp
+SRC = Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp \
+	RobotomyRequestForm.cpp PresidentialPardonForm.cpp main.cpp
 
 CFLAGS = -Wall -Wextra -Werror -std=c++17 -g
 
-OBJ = $(SRC:.cpp=.o)
+OBJ_DIR = obj
+OBJ = $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
 CC = c++
 
 all: $(NAME)
-	@echo "$(NAME) built"
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -f *_shrubbery
+	@echo "Deleted all shrubbery files."
 
 re: fclean all
 

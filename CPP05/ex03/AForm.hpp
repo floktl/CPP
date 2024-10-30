@@ -14,6 +14,7 @@
 #define FORM_HPP
 
 #include "Bureaucrat.hpp"
+#include <ctime>
 
 //pre-definition
 class Bureaucrat;

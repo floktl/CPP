@@ -6,77 +6,91 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 09:16:29 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/05 08:35:35 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/30 09:12:04 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
-#include <iostream>
+// ANSI color codes for output styling
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define PURPLE  "\033[35m"
 
 int main()
 {
     try
     {
-        // Create a valid Bureaucrat
-        Bureaucrat john("John", 50);
-        std::cout << john << std::endl;
+        // Create Bureaucrats with different grades
+        Bureaucrat alice("Alice", 140);
+        Bureaucrat bob("Bob", 150);
+        Bureaucrat charlie("Charlie", 130);
+        Bureaucrat dave("Dave", 50);
+        Bureaucrat eve("Eve", 10);
 
-        // Try incrementing and decrementing the grade
-        john.incGrade(10);
-        std::cout << "After increasing John's grade: " << john << std::endl;
+        Bureaucrat* bureaucrats[] = { &bob, &alice, &charlie, &dave, &alice, &dave, &charlie, &dave, &eve, &dave, &eve, &eve};
+        std::string actions[] = { "sign", "sign", "execute", "sign", "sign", "execute", "execute", "sign", "sign", "execute", "execute" , "execute"};
+        std::string formTypes[] = { "ShrubberyCreationForm", "RobotomyRequestForm", "PresidentialPardonForm" };
+        std::string targets[] = { "Garden", "TargetA", "TargetB" };
 
-        john.decGrade(20);
-        std::cout << "After decreasing John's grade: " << john << std::endl;
-
-        // Create a Form with valid grades
-        Form taxForm("Tax Form", 30, 20);
-        std::cout << taxForm << std::endl;
-
-        // Try to sign the form with a Bureaucrat that has too low of a grade
-        try
+        // Loop through each test
+        for (int i = 0; i < 12; ++i)
         {
-            john.signForm(taxForm);
-        }
-        catch (std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;
+            std::cout << BLUE << "\nTest " << i + 1 << ": " << actions[i] << " "
+				<< PURPLE << formTypes[i % 3] << RESET
+				<< " for target " << targets[i % 3] << " with "
+				<< YELLOW << bureaucrats[i]->getName() << RESET
+				<< " (Grade " << bureaucrats[i]->getGrade() << ")"
+				<< RESET << std::endl;
+
+            AForm* form = nullptr;
+
+            // Initialize the correct form type
+            if (formTypes[i % 3] == "ShrubberyCreationForm")
+                form = new ShrubberyCreationForm(targets[i % 3]);
+            else if (formTypes[i % 3] == "RobotomyRequestForm")
+                form = new RobotomyRequestForm(targets[i % 3]);
+            else if (formTypes[i % 3] == "PresidentialPardonForm")
+                form = new PresidentialPardonForm(targets[i % 3]);
+
+			form->print(std::cout);
+            try
+            {
+                // Perform the action based on the test setup
+
+                if (actions[i] == "sign" && form)
+                {
+                    std::cout << YELLOW << "Attempting to sign..." << RESET << std::endl;
+                    bureaucrats[i]->signForm(*form);
+                }
+                else if (actions[i] == "execute" && form)
+                {
+                    std::cout << YELLOW << "Attempting to execute..." << RESET << std::endl;
+                    bureaucrats[i]->executeForm(*form);
+					bureaucrats[i]->signForm(*form);
+                    bureaucrats[i]->executeForm(*form);
+                }
+                std::cout << GREEN << "Action completed successfully.\n" << RESET << std::endl;
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << RED << "Exception occurred: " << e.what() << RESET << '\n';
+            }
+
+            delete form; // Clean up the form
         }
 
-        // Create a higher-ranked Bureaucrat
-        Bureaucrat alice("Alice", 25);
-        std::cout << alice << std::endl;
-
-        // Try signing the form with Alice, whose grade is high enough
-        alice.signForm(taxForm);
-        std::cout << taxForm << std::endl;
-
-        // Try to create a Form with an invalid high grade
-        try
-        {
-            Form invalidForm("Invalid Form", 0, 20);
-        }
-        catch (std::exception& e)
-        {
-            std::cerr << "Error creating form: " << e.what() << std::endl;
-        }
-
-        // Try to create a Bureaucrat with an invalid grade
-        try
-        {
-            Bureaucrat invalidBureaucrat("Invalid Bureaucrat", 151);
-        }
-        catch (std::exception& e)
-        {
-            std::cerr << "Error creating bureaucrat: " << e.what() << std::endl;
-        }
+        std::cout << GREEN << "\nAll tests completed." << RESET << std::endl;
     }
-    catch (std::exception& e)
+    catch (const std::exception& e)
     {
-        std::cerr << "General exception: " << e.what() << std::endl;
+        std::cerr << RED << "An error occurred: " << e.what() << RESET << std::endl;
     }
-
     return 0;
 }

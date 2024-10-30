@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:56:22 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/04 10:33:56 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/28 08:00:13 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ public:
     };
 
     Bureaucrat(std::string const &name, int grade);
+	Bureaucrat(const Bureaucrat &other);
+	Bureaucrat &operator=(const Bureaucrat &other);
+    ~Bureaucrat();
 
     std::string getName() const;
     int getGrade() const;

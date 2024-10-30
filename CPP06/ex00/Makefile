@@ -6,13 +6,13 @@
 #    By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 07:02:13 by fkeitel           #+#    #+#              #
-#    Updated: 2024/10/28 08:17:43 by fkeitel          ###   ########.fr        #
+#    Updated: 2024/10/29 07:07:05 by fkeitel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Form
+NAME = converter
 
-SRC = Bureaucrat.cpp Form.cpp main.cpp
+SRC = ScalarConverter.cpp main.cpp
 
 CFLAGS = -Wall -Wextra -Werror -std=c++17 -g
 
@@ -39,3 +39,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
