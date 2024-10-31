@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 09:16:29 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/30 12:32:44 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/31 08:01:37 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 			"-2147483648",  //	Min int
 			"128.5f",       //	Float with fractional part
 			"127",          //	Max signed char as int
-			"non-numeric",   //	Invalid literal
+			"non-numeric",  //	Invalid literal
 			""				//	empty literal
 		};
 		for (const std::string& literal : testLiterals)

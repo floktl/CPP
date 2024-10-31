@@ -6,7 +6,7 @@
 /*   By: fkeitel <fkeitel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 08:59:34 by fkeitel           #+#    #+#             */
-/*   Updated: 2024/10/30 13:41:23 by fkeitel          ###   ########.fr       */
+/*   Updated: 2024/10/31 09:57:41 by fkeitel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ bool hasDecimal(const std::string& literal)
 // Helper function for int conversion
 bool tryConvertInt(const std::string& literal)
 {
+	int intValue;
+
     try
 	{
-        int intValue = std::stoi(literal);
+        intValue = std::stoi(literal);
 
 		if (hasDecimal(literal) == true)
 			return false;
@@ -97,21 +99,27 @@ bool tryConvertInt(const std::string& literal)
 
 int calculatePrecision(std::string strValue)
 {
+	bool	isFloat = false;
+	int		precision;
+	size_t endPosition;
+	size_t dotPosition;
 
-    // Find decimal point
-    size_t dotPosition = strValue.find('.');
-    if (dotPosition == std::string::npos) {
-        return 1;  // No decimal point, so no fractional part
+    dotPosition = strValue.find('.');
+    if (dotPosition == std::string::npos)
+        return 1;
+
+	if (!strValue.empty() && strValue.back() == 'f')
+    {
+        strValue.pop_back();
+		isFloat = true;
     }
-
-    // Remove trailing zeros
-    size_t endPosition = strValue.find_last_not_of('0');
-    if (endPosition != std::string::npos && endPosition > dotPosition) {
+    endPosition = strValue.find_last_not_of('0');
+    if (endPosition != std::string::npos && endPosition > dotPosition)
         strValue = strValue.substr(0, endPosition + 1);
-    }
-
-    // Count digits after the decimal point
-    return strValue.length() - dotPosition - 1;
+	precision = strValue.length() - dotPosition - 1;
+	if (isFloat)
+		return (precision > 5) ? 5 : precision;
+	return (precision < 15) ? precision : 15;
 }
 
 // Helper function for float and double conversion
@@ -145,10 +153,15 @@ bool tryConvertFloatAndDouble(const std::string& literal)
 
 		std::cout << "char: '*'" << std::endl;
 		std::cout << "int: " << static_cast<int>(doubleValue) << std::endl;
-		std::cout << "float: " << std::fixed << std::setprecision(precision) << floatValue << "f" << std::endl;
-		std::cout << "double without: " << doubleValue << std::endl;
-		std::cout << "double: " << std::fixed << std::setprecision(precision - 1) << doubleValue << std::endl;
-
+		std::cout << "float: " << std::fixed << std::setprecision(precision)
+			<< floatValue << "f" << std::endl;
+		if (doubleValue > 1e6)
+			std::cout << "double: " << std::scientific << std::setprecision(precision)
+				<< doubleValue << std::endl;
+		else
+			std::cout << std::fixed << std::setprecision(precision)
+				<< doubleValue << std::endl;
+		std::cout.unsetf(std::ios::fixed);
         return true;
     }
 	catch (...)
